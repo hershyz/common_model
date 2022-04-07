@@ -1,4 +1,6 @@
 from copy import deepcopy
+import abs_distance_classifier
+import sqrt_distance_classifier
 
 def common_model(path):
     
@@ -52,7 +54,46 @@ def common_model(path):
 
 
 
+
+
+
+
+# read data
+csv_path = 'data/diabetes_data.csv'
+f = open(csv_path, 'r')
+point_arr = []
+lines = f.readlines()
+for i in range(1, len(lines)):
+    line = lines[i]
+    line = line.replace('\n', '')
+    point_arr.append(line.split(','))
+
+
 # testing
-csv_path = 'data/cervical_cancer.csv'
 model = common_model(csv_path)
-print(model)
+totals = {}
+correct = {}
+for cat in model:
+    totals[cat] = 0
+    correct[cat] = 0
+
+for point in point_arr:
+    prediction = sqrt_distance_classifier.classify(point, model)
+    cat = point[len(point) - 1]
+    totals[cat] += 1
+    if prediction == cat:
+        correct[cat] += 1
+
+
+# display categorical accuracy
+for cat in totals:
+    print(cat + ': ' + str(float(correct[cat] / totals[cat])))
+
+
+# display total accuracy
+total = 0
+total_correct = 0
+for cat in totals:
+    total += totals[cat]
+    total_correct += correct[cat]
+print('overall accuracy: ' + str(float(total_correct / total)))
