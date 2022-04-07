@@ -59,7 +59,7 @@ def common_model(path):
 
 
 # read data
-csv_path = 'data/diabetes_data.csv'
+csv_path = 'data/water_potability.csv'
 f = open(csv_path, 'r')
 point_arr = []
 lines = f.readlines()
@@ -78,7 +78,7 @@ for cat in model:
     correct[cat] = 0
 
 for point in point_arr:
-    prediction = sqrt_distance_classifier.classify(point, model)
+    prediction = sqrt_distance_classifier.classify(point, model)  # classifier type
     cat = point[len(point) - 1]
     totals[cat] += 1
     if prediction == cat:
