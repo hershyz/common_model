@@ -9,8 +9,7 @@ def classify(point, model):
         cat_dist = 0
         for i in range(len(arr)):
             try:
-                x = float(point[i])
-                cat_dist += (arr[i] - x) ** 2
+                cat_dist += (arr[i] - float(point[i])) ** 2
             except:
                 continue
         dists[cat] = math.sqrt(cat_dist)

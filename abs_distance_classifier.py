@@ -2,24 +2,22 @@ import math
 
 def classify(point, model):
 
-    dists = {}
-
+    distances = {}
     for cat in model:
-        arr = model[cat]
-        cat_dist = 0
-        for i in range(len(arr)):
+        cat_distance = 0
+        cat_arr = model[cat]
+        for i in range(0, len(cat_arr)):
             try:
-                x = float(point[i])
-                cat_dist += math.abs(arr[i] - x)
+                cat_distance += abs(cat_arr[i] - float(point[i]))
             except:
                 continue
-        dists[cat] = cat_dist
+        distances[cat] = cat_distance
     
-    min = 10000000000
+    min_distance = 1000000000000
     min_cat = ''
-    for cat in dists:
-        if dists[cat] < min:
+    for cat in distances:
+        if distances[cat] < min_distance:
+            min_distance = distances[cat]
             min_cat = cat
-            min = dists[cat]
-    
+
     return min_cat
