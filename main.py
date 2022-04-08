@@ -1,3 +1,4 @@
+from cmath import sqrt
 from copy import deepcopy
 import abs_distance_classifier
 import sqrt_distance_classifier
@@ -59,7 +60,7 @@ def common_model(path):
 
 
 # read data
-csv_path = 'data/drug_classification.csv'
+csv_path = 'data/cervical_cancer.csv'
 f = open(csv_path, 'r')
 point_arr = []
 lines = f.readlines()
@@ -78,7 +79,7 @@ for cat in model:
     correct[cat] = 0
 
 for point in point_arr:
-    prediction = abs_distance_classifier.classify(point, model)  # classifier type
+    prediction = sqrt_distance_classifier.classify(point, model)  # classifier type
     cat = point[len(point) - 1]
     totals[cat] += 1
     if prediction == cat:
