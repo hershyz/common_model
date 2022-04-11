@@ -1,6 +1,5 @@
 from copy import deepcopy
-import abs_distance_classifier
-import sqrt_distance_classifier
+import random
 
 def common_model(path):
     
@@ -51,49 +50,26 @@ def common_model(path):
 
     return model
 
+def dataframe(csv_path):
+    f = open(csv_path, 'r')
+    point_arr = []
+    lines = f.readlines()
+    for i in range(1, len(lines)):
+        line = lines[i]
+        line = line.replace('\n', '')
+        point_arr.append(line.split(','))
+    return point_arr
 
+def unique_cats(dataframe):
+    cats = []
+    for point in dataframe:
+        cat = point[len(point) - 1]
+        if cat not in cats:
+            cats.append(cat)
+    return cats
 
-
-
-
-
-
-# read data
-csv_path = 'data/cervical_cancer.csv'
-f = open(csv_path, 'r')
-point_arr = []
-lines = f.readlines()
-for i in range(1, len(lines)):
-    line = lines[i]
-    line = line.replace('\n', '')
-    point_arr.append(line.split(','))
-
-
-# testing
-model = common_model(csv_path)
-totals = {}
-correct = {}
-for cat in model:
-    totals[cat] = 0
-    correct[cat] = 0
-
-for point in point_arr:
-    prediction = sqrt_distance_classifier.classify(point, model)  # classifier type
-    cat = point[len(point) - 1]
-    totals[cat] += 1
-    if prediction == cat:
-        correct[cat] += 1
-
-
-# display categorical accuracy
-for cat in totals:
-    print(cat + ': ' + str(float(correct[cat] / totals[cat])))
-
-
-# display total accuracy
-total = 0
-total_correct = 0
-for cat in totals:
-    total += totals[cat]
-    total_correct += correct[cat]
-print('overall accuracy: ' + str(float(total_correct / total)))
+def unique_random(low, high, taken):
+    while True:
+        n = random.randint(low, high)
+        if n not in taken:
+            return n
