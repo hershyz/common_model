@@ -69,6 +69,8 @@ print('overall accuracy: ' + str(overall_sqrt_correct / overall_sqrt_total))
 print('')
 print('knn:')
 sample_size = round(0.1 * len(dataframe))
+if sample_size > 100:
+    sample_size = 100
 knn_totals = {}
 knn_correct = {}
 sample_indices = []
