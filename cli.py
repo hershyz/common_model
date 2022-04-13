@@ -1,4 +1,3 @@
-from random import sample
 import time
 import common_lib
 import abs_distance_classifier
