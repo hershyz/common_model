@@ -17,7 +17,7 @@ def classify(point, dataframe):
             dists.append([dist, cat])
     
     # k = round(0.1 * len(dataframe))
-    k = 3
+    k = 5
     dists.sort(key=lambda x: x[0])
     freqs = {}
     for i in range(0, k):

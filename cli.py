@@ -1,3 +1,4 @@
+from random import sample
 import time
 import common_lib
 import abs_distance_classifier
@@ -71,6 +72,8 @@ print('knn:')
 sample_size = round(0.1 * len(dataframe))
 if sample_size > 100:
     sample_size = 100
+if sample_size < 30:
+    sample_size = 30
 knn_totals = {}
 knn_correct = {}
 sample_indices = []
@@ -92,7 +95,8 @@ for i in sample_indices:
         knn_correct[cat] += 1
 
 for cat in knn_totals:
-    print(cat + ': ' + str(knn_correct[cat] / knn_totals[cat]))
+    if knn_totals[cat] > 0:
+        print(cat + ': ' + str(knn_correct[cat] / knn_totals[cat]))
 
 overall_knn_total = 0
 overall_knn_correct = 0

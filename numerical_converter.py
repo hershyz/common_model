@@ -8,9 +8,12 @@ n = 0
 for point in dataframe:
     for i in range(0, len(point) - 1):
         feature = point[i]
-        if feature not in map:
-            map[feature] = n
-            n += 1
+        try:
+            num = float(feature)
+        except:
+            if feature not in map:
+                map[feature] = n
+                n += 1
 
 f = open(csv_path, 'r')
 raw = f.readlines()
@@ -34,6 +37,8 @@ for point in converted_dataframe:
     point_string = str(point)
     point_string = point_string.replace('[', '')
     point_string = point_string.replace(']', '')
+    point_string = point_string.replace('\'', '')
+    point_string = point_string.replace(' ', '')
     new_f.write(point_string + '\n')
 
 print('converted dataset: ' + str(map))
